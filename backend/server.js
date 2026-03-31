@@ -30,12 +30,22 @@ app.use('/api/playlists', playlistRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/tracks/:trackId/reviews', reviewRoutes);
 
+app.use('/api/*', (req, res) => {
+  res.status(404).json({ message: 'API endpoint not found' });
+});
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ message: err.message });
+  res.status(500).json({ message: err.message || 'Internal server error' });
 });
 
 const PORT = process.env.PORT || 5001;
-sequelize.sync({ alter: true }).then(() => {
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-});
+sequelize.authenticate()
+  .then(() => sequelize.sync({ alter: true }))
+  .then(() => {
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch((err) => {
+    console.error('Database connection/startup failed:', err.message);
+    process.exit(1);
+  });

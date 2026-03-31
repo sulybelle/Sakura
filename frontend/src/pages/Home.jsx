@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getTracks } from '../api/api';
 import TrackCard from '../components/TrackCard';
-import { Menu, PanelRightClose, PanelRightOpen, Search } from 'lucide-react';
+import { Menu, UserCircle } from 'lucide-react';
 
-const Home = ({ toggleSidebar, toggleRight, rightOpen }) => {
+const Home = ({ toggleSidebar }) => {
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -39,17 +40,16 @@ const Home = ({ toggleSidebar, toggleRight, rightOpen }) => {
           <button className="hamburger-btn" onClick={toggleSidebar} aria-label="Toggle sidebar">
             <Menu className="ui-icon" />
           </button>
-          <button className="toggle-right-btn" onClick={toggleRight}>
-            {rightOpen ? <PanelRightClose className="ui-icon" /> : <PanelRightOpen className="ui-icon" />}
-          </button>
         </div>
-        <div className="search-bar">
-          <span className="search-icon" aria-hidden="true"><Search className="ui-icon" /></span>
-          <input type="text" placeholder="Не тыңдағыңыз келеді?" id="globalSearch" />
+        <div className="home-slogan" aria-label="Sakura slogan">
+          <p>Sakura — Music for your soul</p>
         </div>
         <div className="user-info">
           {user ? (
-            <span>Сәлем, {user.username}</span>
+            <Link to="/profile" className="profile-link">
+              <UserCircle className="ui-icon" />
+              <span>Жеке бет</span>
+            </Link>
           ) : (
             <button className="auth-btn login" onClick={() => window.location.href = '/login'}>Кіру</button>
           )}

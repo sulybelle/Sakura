@@ -31,10 +31,19 @@ const User = sequelize.define('User', {
     type: DataTypes.ENUM('user', 'admin'),
     defaultValue: 'user',
   },
+  likedTracks: {
+    type: DataTypes.JSONB,
+    defaultValue: [],
+  },
 }, {
   hooks: {
     beforeCreate: async (user) => {
       user.password_hash = await bcrypt.hash(user.password_hash, 10);
+    },
+    beforeUpdate: async (user) => {
+      if (user.changed('password_hash')) {
+        user.password_hash = await bcrypt.hash(user.password_hash, 10);
+      }
     },
   },
 });

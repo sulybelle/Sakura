@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useMusic } from '../context/MusicContext';
 import logo from '../assets/Sakura.png';
-import { Home, Search, Library, Plus, Heart, LogIn, LogOut } from 'lucide-react';
+import { Home, Search, Library, Plus, Heart, UserCircle } from 'lucide-react';
 
 const Sidebar = ({ isOpen }) => {
   const { user, logout } = useMusic();
@@ -34,7 +34,7 @@ const Sidebar = ({ isOpen }) => {
       <hr className="divider" />
       
       <nav className="menu-items">
-        <Link to="/playlists" className={isActive('/playlists')}>
+        <Link to="/library?create=1" className={isActive('/library')}>
           <Plus className="nav-icon" />
           {isOpen && <span>Жаңа плейлист</span>}
         </Link>
@@ -42,17 +42,27 @@ const Sidebar = ({ isOpen }) => {
           <Heart className="nav-icon" />
           {isOpen && <span>Сүйіктілерім</span>}
         </Link>
+        {user ? (
+          <Link to="/profile" className={isActive('/profile')}>
+            <UserCircle className="nav-icon" />
+            {isOpen && <span>Жеке бет</span>}
+          </Link>
+        ) : null}
       </nav>
 
       <div className="sidebar-footer">
         {user ? (
-          <button className="auth-btn logout" onClick={logout}>
-            {isOpen ? `Шығу (${user.username})` : <LogOut className="nav-icon" />}
-          </button>
+          isOpen ? (
+            <button className="auth-btn logout" onClick={logout}>
+              Шығу
+            </button>
+          ) : null
         ) : (
-          <Link to="/login" className="auth-btn login">
-            {isOpen ? 'Кіру' : <LogIn className="nav-icon" />}
-          </Link>
+          isOpen ? (
+            <Link to="/login" className="auth-btn login">
+              Кіру
+            </Link>
+          ) : null
         )}
       </div>
     </aside>

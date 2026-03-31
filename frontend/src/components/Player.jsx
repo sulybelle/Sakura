@@ -50,6 +50,7 @@ const Player = ({ onClose }) => {
 
   const coverUrl = currentTrack.cover_image ? toMediaUrl(currentTrack.cover_image) : '/default-cover.jpg';
   const artistImageUrl = currentTrack.Artist?.image ? toMediaUrl(currentTrack.Artist.image) : '';
+  const artistName = currentTrack.Artist?.name || currentTrack.artist || currentTrack.artist_name || 'Белгісіз автор';
 
   return (
     <footer className="player-bar">
@@ -62,7 +63,7 @@ const Player = ({ onClose }) => {
           <h4>{currentTrack.title}</h4>
           <div className="player-artist-row">
             {artistImageUrl ? <img src={artistImageUrl} alt="artist" className="artist-avatar" /> : null}
-            <p>{currentTrack.Artist?.name}</p>
+            <p>{artistName}</p>
           </div>
         </div>
       </div>

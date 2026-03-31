@@ -12,6 +12,19 @@ const Playlist = sequelize.define('Playlist', {
     allowNull: false,
   },
   description: DataTypes.TEXT,
+  cover_image: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  play_mode: {
+    type: DataTypes.ENUM('sequence', 'shuffle'),
+    allowNull: false,
+    defaultValue: 'sequence',
+  },
+  user_id: {
+    type: DataTypes.UUID,
+    allowNull: true,
+  },
 });
 
 export default Playlist;

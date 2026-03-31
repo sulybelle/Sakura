@@ -30,7 +30,9 @@ export const getTrackById = async (req, res) => {
 
 export const createTrack = async (req, res) => {
   try {
-    const { title, duration, artistId } = req.body; 
+    const { title, duration, artistId } = req.body;
+    const file_url = req.files?.audio ? `/uploads/audio/${req.files.audio[0].filename}` : null;
+    const cover_image = req.files?.image ? `/uploads/images/${req.files.image[0].filename}` : null;
     if (!title || !file_url) return res.status(400).json({ message: 'Title and audio file required' });
     const track = await Track.create({ title, duration, file_url, cover_image, artistId });
     res.status(201).json(track);

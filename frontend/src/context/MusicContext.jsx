@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef } from 'react';
+import { updateUserProfile } from '../api/api';
 
 const MusicContext = createContext();
 
@@ -21,10 +22,23 @@ export const MusicProvider = ({ children }) => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-    if (storedUser) setUser(JSON.parse(storedUser));
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+      if (Array.isArray(parsedUser.likedTracks)) {
+        setLikedTracks(parsedUser.likedTracks);
+        return;
+      }
+    }
     const storedLikes = localStorage.getItem('likedTracks');
     if (storedLikes) setLikedTracks(JSON.parse(storedLikes));
   }, []);
+
+  useEffect(() => {
+    if (Array.isArray(user?.likedTracks)) {
+      setLikedTracks(user.likedTracks);
+    }
+  }, [user?.likedTracks]);
 
   // likedTracks өзгергенде localStorage-ке сақтау
   useEffect(() => {
@@ -92,16 +106,37 @@ export const MusicProvider = ({ children }) => {
     }
   };
 
+  const syncLikedTracks = async (nextLikedTracks) => {
+    if (!user?.id) return;
+    try {
+      const res = await updateUserProfile(user.id, { likedTracks: nextLikedTracks });
+      const nextUser = res.data?.user;
+      if (nextUser) {
+        setUser(nextUser);
+        localStorage.setItem('user', JSON.stringify(nextUser));
+      }
+    } catch {
+    }
+  };
+
   const toggleLike = (trackId) => {
-    setLikedTracks(prev =>
-      prev.includes(trackId) ? prev.filter(id => id !== trackId) : [...prev, trackId]
-    );
+    setLikedTracks((prev) => {
+      const nextLikedTracks = prev.includes(trackId)
+        ? prev.filter((id) => id !== trackId)
+        : [...prev, trackId];
+      if (user?.id) {
+        syncLikedTracks(nextLikedTracks);
+      }
+      return nextLikedTracks;
+    });
   };
 
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('likedTracks');
     setUser(null);
+    setLikedTracks([]);
     window.location.href = '/login';
   };
 

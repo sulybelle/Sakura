@@ -7,14 +7,14 @@ import PlaylistTrack from './PlaylistTrack.js';
 import Review from './Review.js';
 
 // Байланыстар
-User.hasMany(Playlist);
-Playlist.belongsTo(User);
+User.hasMany(Playlist, { foreignKey: 'user_id' });
+Playlist.belongsTo(User, { foreignKey: 'user_id' });
 
 User.hasMany(Review);
 Review.belongsTo(User);
  
-Artist.hasMany(Track);
-Track.belongsTo(Artist);
+Artist.hasMany(Track, { foreignKey: 'artistId' });
+Track.belongsTo(Artist, { foreignKey: 'artistId' });
 
 Track.hasMany(Review);
 Review.belongsTo(Track);

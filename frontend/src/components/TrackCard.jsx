@@ -4,33 +4,55 @@ import { addTrackToPlaylist, getPlaylists } from '../api/api';
 import { Heart, Plus, Play, Pause } from 'lucide-react';
 
 const TrackCard = ({ track, tracksList }) => {
-  const { playTrack, likedTracks, toggleLike, currentTrack, isPlaying, toMediaUrl } = useMusic();
+  const { playTrack, likedTracks, toggleLike, currentTrack, isPlaying, setIsPlaying, toMediaUrl } = useMusic();
   const [showMenu, setShowMenu] = useState(false);
   const [playlists, setPlaylists] = useState([]);
 
   const coverUrl = track.cover_image ? toMediaUrl(track.cover_image) : '/default-cover.jpg';
   const artistImageUrl = track.Artist?.image ? toMediaUrl(track.Artist.image) : '';
+  const artistName = track.Artist?.name || track.artist || track.artist_name || 'Белгісіз автор';
   const isLiked = likedTracks.includes(track.id);
   const isCurrentlyPlaying = currentTrack?.id === track.id;
 
+  const handlePlayToggle = (e) => {
+    e.stopPropagation();
+    if (isCurrentlyPlaying) {
+      setIsPlaying(!isPlaying);
+      return;
+    }
+    playTrack(track, tracksList);
+  };
+
   const handleAddToPlaylist = async (playlistId) => {
-    await addTrackToPlaylist(playlistId, track.id);
-    alert('Трек плейлистке қосылды');
-    setShowMenu(false);
+    try {
+      await addTrackToPlaylist(playlistId, track.id);
+      alert('Трек плейлистке қосылды');
+      setShowMenu(false);
+    } catch (err) {
+      alert(err.response?.data?.message || 'Тректі плейлистке қосу сәтсіз аяқталды');
+    }
   };
 
   const fetchPlaylists = async (e) => {
     e.stopPropagation();
-    const res = await getPlaylists();
-    setPlaylists(res.data);
-    setShowMenu(!showMenu);
+    try {
+      const res = await getPlaylists();
+      setPlaylists(res.data);
+      setShowMenu(!showMenu);
+    } catch (err) {
+      if (err.response?.status === 401) {
+        window.location.href = '/login';
+        return;
+      }
+      alert(err.response?.data?.message || 'Плейлисттерді жүктеу сәтсіз аяқталды');
+    }
   };
 
   return (
     <div className={`card ${isCurrentlyPlaying ? 'active-card' : ''}`} onClick={() => playTrack(track, tracksList)}>
       <div className="card-image-wrapper">
         <img src={coverUrl} alt={track.title} />
-        <button className="play-overlay">
+        <button className="play-overlay" onClick={handlePlayToggle} aria-label="Play track">
            {isCurrentlyPlaying && isPlaying ? <Pause className="ui-icon" /> : <Play className="ui-icon" />}
         </button>
       </div>
@@ -38,16 +60,16 @@ const TrackCard = ({ track, tracksList }) => {
         <h4>{track.title}</h4>
         <div className="card-artist-row">
           {artistImageUrl ? <img src={artistImageUrl} alt="artist" className="artist-avatar" /> : null}
-          <p>{track.Artist?.name}</p>
+          <p className="card-artist-name">{artistName}</p>
         </div>
       </div>
       
       <div className="card-actions" onClick={e => e.stopPropagation()}>
-        <button className="icon-btn" onClick={() => toggleLike(track.id)} aria-label="Like">
+        <button className="icon-btn card-action-btn" onClick={() => toggleLike(track.id)} aria-label="Like">
           <Heart className={`ui-icon ${isLiked ? 'liked' : ''}`} />
         </button>
         <div className="dropdown-container">
-          <button className="icon-btn" onClick={fetchPlaylists} aria-label="Add to playlist">
+          <button className="icon-btn card-action-btn" onClick={fetchPlaylists} aria-label="Add to playlist">
             <Plus className="ui-icon" />
           </button>
           {showMenu && (
