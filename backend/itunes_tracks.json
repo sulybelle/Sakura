@@ -1,5 +1,23 @@
 [
   {
+    "title": "Асылым (feat. AL Nasr)",
+    "artist": "Aikyn Tolepbergen",
+    "album": "Асылым",
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/37/a6/41/37a64158-45ec-5ff5-fca6-bfcfcab0dfcf/mzm.taikzrox.jpg/600x600bb.jpg",
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/65/20/14/652014f3-48e1-5556-c12d-06435d224398/mzaf_11033001308778267272.plus.aac.p.m4a",
+    "duration": 246,
+    "itunesId": 1033142383
+  },
+  {
+    "title": "Eń Sulý",
+    "artist": "Darkhan Juzz",
+    "album": "TBRN",
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/b2/cb/85/b2cb856c-cc5c-2cdd-db37-1cd8c29a8685/cover.jpg/600x600bb.jpg",
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c1/ff/c8/c1ffc8ee-9b3d-1da3-0b9c-5f84bf3756be/mzaf_3514031933376380155.plus.aac.p.m4a",
+    "duration": 235,
+    "itunesId": 1461187167
+  },
+  {
     "title": "Люби меня, люби",
     "artist": "Otpetye Moshenniki",
     "album": "Люби меня, люби - Single",
@@ -135,22 +153,22 @@
     "itunesId": 1681997971
   },
   {
-    "title": "Heart // Mind",
-    "artist": "Her Last Sight",
-    "album": "Heart // Mind - Single",
-    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/0f/da/77/0fda77ff-437a-6c9c-e068-58a8c99eb585/artwork.jpg/600x600bb.jpg",
-    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/76/fd/70/76fd7032-9e6d-5b36-e175-ad6ed5daf737/mzaf_4506954106646451673.plus.aac.p.m4a",
-    "duration": 303,
-    "itunesId": 1587687841
+    "title": "Heart Mind",
+    "artist": "Merkaba",
+    "album": "Awaken",
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music/93/43/73/mzi.uadiqryi.jpg/600x600bb.jpg",
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/67/d9/d2/67d9d2dc-6923-dbd7-fc25-fed459332b1d/mzaf_5868414412128815958.plus.aac.p.m4a",
+    "duration": 607,
+    "itunesId": 440042247
   },
   {
-    "title": "Golden (DJ Dark Remix) [Mixed]",
-    "artist": "KPop Demon Hunters Cast, AUDREY NUNA, EJAE, REI AMI & HUNTR/X",
-    "album": "Lenny’s Toddler Techno New Year’s Eve (DJ Mix)",
-    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/07/03/b4/0703b4df-1c76-44ff-5dde-129088967f6e/8d9f5c8c-9aa3-4647-aa7d-ae45ab0f4faa.jpg/600x600bb.jpg",
-    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ee/db/0c/eedb0c53-25a5-6060-c177-d84956a588dd/mzaf_10117304126628545525.plus.aac.p.m4a",
-    "duration": 169,
-    "itunesId": 1860632671
+    "title": "Golden",
+    "artist": "HUNTR/X, EJAE, AUDREY NUNA, REI AMI & KPop Demon Hunters Cast",
+    "album": "KPop Demon Hunters (Soundtrack from the Netflix Film)",
+    "cover": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e1/15/42/e1154273-8ecd-5702-e6e6-597f28001681/25UMGIM82363.rgb.jpg/600x600bb.jpg",
+    "preview_url": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/38/68/32/3868327b-f83f-71c7-0a0c-1813edf2b73e/mzaf_9475346657459209500.plus.aac.p.m4a",
+    "duration": 194,
+    "itunesId": 1820264150
   },
   {
     "title": "Surround Sound (feat. 21 Savage & Baby Tate)",
