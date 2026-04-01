@@ -6,19 +6,16 @@ const tracksData = JSON.parse(fs.readFileSync('./itunes_tracks.json', 'utf-8'));
 const reimport = async () => {
   try {
     await sequelize.sync();
-
-    // 1. Барлық тректерді өшіру (егер қайта импорттағыңыз келсе)
+ 
     await Track.destroy({ where: {} });
     await Artist.destroy({ where: {} });
-
-    // 2. Орындаушыларды қосу
+ 
     const uniqueArtists = [...new Map(tracksData.map(item => [item.artist, item.artist])).values()];
     for (const name of uniqueArtists) {
       await Artist.create({ name });
       console.log(`Орындаушы қосылды: ${name}`);
     }
 
-    // 3. Тректерді қосу
     for (const item of tracksData) {
       const artist = await Artist.findOne({ where: { name: item.artist } });
       if (!artist) {
@@ -30,7 +27,7 @@ const reimport = async () => {
         duration: item.duration,
         file_url: item.preview_url,
         cover_image: item.cover,
-        itunesId: String(item.itunesId),  // Жолға түрлендіру
+        itunesId: String(item.itunesId),   
         preview_url: item.preview_url,
         artistId: artist.id,
       });

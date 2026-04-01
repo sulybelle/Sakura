@@ -5,8 +5,7 @@ import Track from './Track.js';
 import Playlist from './Playlist.js';
 import PlaylistTrack from './PlaylistTrack.js';
 import Review from './Review.js';
-
-// Байланыстар
+ 
 User.hasMany(Playlist, { foreignKey: 'user_id' });
 Playlist.belongsTo(User, { foreignKey: 'user_id' });
 

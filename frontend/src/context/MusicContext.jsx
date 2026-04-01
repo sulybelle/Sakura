@@ -10,7 +10,7 @@ export const MusicProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [queue, setQueue] = useState([]);
   const [user, setUser] = useState(null);
-  const [likedTracks, setLikedTracks] = useState([]); // сүйікті тректердің ID-і
+  const [likedTracks, setLikedTracks] = useState([]);   
   const audioRef = useRef(new Audio());
 
   const mediaBaseUrl = (import.meta.env.VITE_MEDIA_URL || import.meta.env.VITE_API_URL || '').replace(/\/api\/?$/, '');
@@ -39,13 +39,11 @@ export const MusicProvider = ({ children }) => {
       setLikedTracks(user.likedTracks);
     }
   }, [user?.likedTracks]);
-
-  // likedTracks өзгергенде localStorage-ке сақтау
+ 
   useEffect(() => {
     localStorage.setItem('likedTracks', JSON.stringify(likedTracks));
   }, [likedTracks]);
-
-  // Аудио элементін басқару
+ 
   useEffect(() => {
     if (currentTrack) {
       audioRef.current.src = toMediaUrl(currentTrack.file_url);
