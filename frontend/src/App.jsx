@@ -22,7 +22,7 @@ const AppContent = () => {
 
   return (
     <BrowserRouter>
-      <div className={`app-container right-closed ${!sidebarOpen ? 'sidebar-closed' : ''} ${!playerOpen ? 'player-closed' : ''}`}>
+      <div className={`app-container ${!sidebarOpen ? 'sidebar-closed' : ''} ${!playerOpen ? 'player-closed' : ''}`}>
         <Sidebar isOpen={sidebarOpen} />
         <main className="main-content">
           <AppRouter toggleSidebar={toggleSidebar} />

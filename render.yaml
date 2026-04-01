@@ -35,8 +35,12 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     autoDeploy: true
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
     envVars:
       - key: VITE_API_URL
-        value: https://sakura-backend.onrender.com/api
+        value: https://sakura-backend-z3e9.onrender.com/api
       - key: VITE_MEDIA_URL
-        value: https://sakura-backend.onrender.com
+        value: https://sakura-backend-z3e9.onrender.com

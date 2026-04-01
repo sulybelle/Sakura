@@ -38,23 +38,23 @@ body {
 /* Grid негізгі құрылым */
 .app-container {
   display: grid;
-  grid-template-columns: 200px 1fr 200px;
+  grid-template-columns: 200px 1fr;
   grid-template-rows: 1fr 80px;
   grid-template-areas:
-    "sidebar main right"
-    "player player player";
+    "sidebar main"
+    "player player";
   height: 100vh;
   transition: grid-template-columns 0.3s ease;
 }
 
 .app-container.player-closed {
   grid-template-rows: 1fr;
-  grid-template-areas: "sidebar main right";
+  grid-template-areas: "sidebar main";
 }
 
 /* Sidebar жабу/ашу */
 .app-container.sidebar-closed {
-  grid-template-columns: 64px 1fr 300px;
+  grid-template-columns: 64px 1fr;
 }
 .app-container.sidebar-closed .logo h2,
 .app-container.sidebar-closed .menu-items a span,
@@ -67,16 +67,6 @@ body {
 }
 .app-container.sidebar-closed .logo {
   justify-content: center;
-}
-
-.app-container.right-closed {
-  grid-template-columns: 200px 1fr 0px;
-}
-.app-container.right-closed.sidebar-closed {
-  grid-template-columns: 64px 1fr 0px;
-}
-.app-container.right-closed .right-panel {
-  display: none;
 }
 
 /* Sidebar */

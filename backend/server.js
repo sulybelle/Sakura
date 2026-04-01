@@ -23,6 +23,10 @@ app.use(express.json());
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Sakura API is running' });
+});
+
 app.use('/api/itunes', itunesRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/tracks', trackRoutes);
