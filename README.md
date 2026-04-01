@@ -3,6 +3,8 @@
 "Музыка тыңдау және альбом шолу қызметін жасау" тақырыбына негізделе жасалған Sakura Music плеері.
 
 **Автор:** Жұматай Махфуза 
+Render frontend: https://sakura-frontend-fbbc.onrender.com
+Render backend: https://sakura-backend-z3e9.onrender.com
 
 ## Технологиялар
 
