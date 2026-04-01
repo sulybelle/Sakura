@@ -3,24 +3,63 @@ import { useNavigate, Link } from 'react-router-dom';
 import { login } from '../api/api';
 import { useMusic } from '../context/MusicContext';
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { setUser } = useMusic();
 
+  const validateEmail = (val) => {
+    if (!val.trim()) return 'Email өрісі міндетті';
+    if (/^\d+$/.test(val.trim())) return 'Email тек сандардан тұра алмайды';
+    if (!emailRegex.test(val.trim())) return 'Email форматы дұрыс емес (мысалы: user@mail.com)';
+    return '';
+  };
+
+  const validatePassword = (val) => {
+    if (!val) return 'Құпия сөз міндетті';
+    if (val.length < 6) return 'Құпия сөз кемінде 6 таңба болуы керек';
+    return '';
+  };
+
+  const handleEmailChange = (e) => {
+    const val = e.target.value;
+    setEmail(val);
+    if (fieldErrors.email) {
+      setFieldErrors((prev) => ({ ...prev, email: validateEmail(val) }));
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    const val = e.target.value;
+    setPassword(val);
+    if (fieldErrors.password) {
+      setFieldErrors((prev) => ({ ...prev, password: validatePassword(val) }));
+    }
+  };
+
+  const handleBlur = (field) => {
+    if (field === 'email') setFieldErrors((prev) => ({ ...prev, email: validateEmail(email) }));
+    if (field === 'password') setFieldErrors((prev) => ({ ...prev, password: validatePassword(password) }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
 
-    if (!email.trim() || !password) {
-      setError('Email және құпия сөз міндетті');
-      return;
-    }
+    const errs = {
+      email: validateEmail(email),
+      password: validatePassword(password),
+    };
+    setFieldErrors(errs);
+    if (Object.values(errs).some(Boolean)) return;
 
     setLoading(true);
     try {
@@ -43,21 +82,29 @@ const Login = () => {
         <h2>Кіру</h2>
         {error ? <p className="error-text auth-feedback">{error}</p> : null}
         {success ? <p className="success-text auth-feedback">{success}</p> : null}
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Құпия сөз"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        <form onSubmit={handleSubmit} noValidate>
+          <div className="field-group">
+            <input
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={handleEmailChange}
+              onBlur={() => handleBlur('email')}
+              className={fieldErrors.email ? 'input-error' : ''}
+            />
+            {fieldErrors.email ? <p className="field-error">{fieldErrors.email}</p> : null}
+          </div>
+          <div className="field-group">
+            <input
+              type="password"
+              placeholder="Құпия сөз"
+              value={password}
+              onChange={handlePasswordChange}
+              onBlur={() => handleBlur('password')}
+              className={fieldErrors.password ? 'input-error' : ''}
+            />
+            {fieldErrors.password ? <p className="field-error">{fieldErrors.password}</p> : null}
+          </div>
           <button type="submit" disabled={loading}>{loading ? 'Жүктелуде...' : 'Кіру'}</button>
         </form>
         <div className="auth-link">

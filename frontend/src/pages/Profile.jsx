@@ -127,11 +127,16 @@ const Profile = () => {
 
           <label>
             Немесе фото жүктеу
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => setAvatarFile(e.target.files?.[0] || null)}
-            />
+            <label className="file-upload-btn">
+              <span>Файл таңдау</span>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setAvatarFile(e.target.files?.[0] || null)}
+                hidden
+              />
+            </label>
+            {avatarFile ? <span className="file-upload-name">{avatarFile.name}</span> : null}
           </label>
 
           <div className="profile-password-grid">

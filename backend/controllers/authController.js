@@ -11,13 +11,19 @@ export const register = async (req, res) => {
     const password = req.body.password;
 
     if (!username || !email || !password) {
-      return res.status(400).json({ message: 'All fields required' });
+      return res.status(400).json({ message: 'Барлық өріс міндетті' });
+    }
+    if (/^\d+$/.test(email)) {
+      return res.status(400).json({ message: 'Email тек сандардан тұра алмайды' });
     }
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ message: 'Invalid email format' });
+      return res.status(400).json({ message: 'Email форматы дұрыс емес' });
     }
     if (String(password).length < 6) {
-      return res.status(400).json({ message: 'Password must be at least 6 characters' });
+      return res.status(400).json({ message: 'Құпия сөз кемінде 6 таңба болуы керек' });
+    }
+    if (String(username).trim().length < 2) {
+      return res.status(400).json({ message: 'Пайдаланушы аты кемінде 2 таңба болуы керек' });
     }
 
     const user = await User.create({ username, email, password_hash: password });
@@ -34,7 +40,7 @@ export const register = async (req, res) => {
       },
     });
   } catch (err) {
-    if (err.name === 'SequelizeUniqueConstraintError') return res.status(400).json({ message: 'User already exists' });
+    if (err.name === 'SequelizeUniqueConstraintError') return res.status(400).json({ message: 'Бұл email немесе пайдаланушы аты бұрыннан тіркелген' });
     res.status(500).json({ message: err.message });
   }
 };
@@ -44,11 +50,11 @@ export const login = async (req, res) => {
     const email = req.body.email?.trim().toLowerCase();
     const password = req.body.password;
     if (!email || !password) {
-      return res.status(400).json({ message: 'Email and password required' });
+      return res.status(400).json({ message: 'Email және құпия сөз міндетті' });
     }
 
     const user = await User.findOne({ where: { email } });
-    if (!user || !(await user.comparePassword(password))) return res.status(401).json({ message: 'Invalid credentials' });
+    if (!user || !(await user.comparePassword(password))) return res.status(401).json({ message: 'Email немесе құпия сөз қате' });
     const token = generateToken(user.id);
     res.json({
       token,
