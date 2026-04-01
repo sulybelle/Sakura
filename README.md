@@ -45,19 +45,6 @@ Sakura/
 
 ### 1) Backend
 
-Create `backend/.env`:
-
-```env
-PORT=5001
-DB_HOST=localhost
-DB_PORT=5434
-DB_NAME=your_db_name
-DB_USER=your_db_user
-DB_PASSWORD=your_db_password
-DB_SSL=false
-JWT_SECRET=your_super_secret
-```
-
 Install and run:
 
 ```bash
