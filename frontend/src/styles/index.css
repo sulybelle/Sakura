@@ -919,12 +919,14 @@ body {
 .playlist-meta-controls input,
 .playlist-meta-controls select,
 .playlist-meta-controls button {
-  height: 40px;
+  height: 20px;
   border-radius: 10px;
   border: 1px solid var(--border-color);
   background: var(--bg-card);
   color: var(--text-primary);
   padding: 0 12px;
+  align-items: center; 
+
 }
 
 .library-create-row input[type='text'] {
@@ -936,7 +938,7 @@ body {
 .playlist-meta-controls button {
   background: rgba(255, 122, 160, 0.2);
   border-color: rgba(255, 122, 160, 0.55);
-  cursor: pointer;
+  cursor: pointer; 
 }
 
 .playlist-details {
@@ -949,9 +951,10 @@ body {
 
 .playlist-meta-controls {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; 
   gap: 10px;
   margin: 12px 0;
+  align-items: center;
 }
 
 .playlist-play-actions {
@@ -967,8 +970,7 @@ body {
 
 .playlist-track-row {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between; 
   padding: 10px 0;
   border-bottom: 1px solid var(--border-color);
 }
