@@ -177,7 +177,7 @@ node reimportTracks.js   # JSON-дан дерекқорға импорт
 | Сервис | Түрі | Директория | URL |
 |--------|------|------------|-----|
 | sakura-backend | Web Service (Node.js) | `backend/` | `https://sakura-backend-z3e9.onrender.com` |
-| sakura-frontend | Static Site | `frontend/` | Render Static Site URL |
+| sakura-frontend | Static Site | `frontend/` | `https://sakura-frontend-fbbc.onrender.com`  |
 | PostgreSQL | Database | — | Render PostgreSQL |
 
 ### Render Environment Variables
