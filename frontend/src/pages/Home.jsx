@@ -8,6 +8,15 @@ const Home = ({ toggleSidebar }) => {
   const [tracks, setTracks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+ 
+  const shuffleArray = (array) => {
+    let shuffled = [...array];  
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem('user');
@@ -18,7 +27,8 @@ const Home = ({ toggleSidebar }) => {
     const fetchTracks = async () => {
       try {
         const res = await getTracks();
-        setTracks(res.data);
+         const shuffledTracks = shuffleArray(res.data);
+        setTracks(shuffledTracks);
       } catch (err) {
         console.error(err);
       } finally {
@@ -29,9 +39,9 @@ const Home = ({ toggleSidebar }) => {
   }, []);
 
   if (loading) return <div className="loading">Жүктелуде...</div>;
-
-  const forYou = tracks.slice(0, 8);
-  const more = tracks.slice(8, 16);
+ 
+  const forYou = tracks.slice(0, 16);
+   const more = tracks.slice(16, 32);
 
   return (
     <>

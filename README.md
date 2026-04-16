@@ -49,7 +49,6 @@ Sakura/
 │   ├── middleware/         — auth.js (JWT protect)
 │   ├── models/            — User, Artist, Track, Playlist, PlaylistTrack, Review
 │   └── routes/            — authRoutes, trackRoutes, playlistRoutes, reviewRoutes, userRoutes, itunesRoutes
-└── render.yaml            — Render деплоймент конфигурациясы
 ```
 
 ## Орнату нұсқаулығы
@@ -136,14 +135,6 @@ node reimportTracks.js   # JSON-дан дерекқорға импорт
 | POST | `/api/playlists/:id/tracks` | Плейлистке трек қосу | JWT |
 | DELETE | `/api/playlists/:id/tracks/:trackId` | Плейлисттен трек алып тастау | JWT |
 
-### Пікірлер (Reviews)
-
-| Әдіс | Endpoint | Сипаттама | Қорғау |
-|------|----------|-----------|--------|
-| GET | `/api/tracks/:trackId/reviews` | Трек пікірлері | - |
-| POST | `/api/tracks/:trackId/reviews` | Пікір жазу | JWT |
-| PUT | `/api/tracks/:trackId/reviews/:id` | Пікірді өзгерту | JWT |
-| DELETE | `/api/tracks/:trackId/reviews/:id` | Пікірді жою | JWT |
 
 ## Валидация
 
